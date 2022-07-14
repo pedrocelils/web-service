@@ -1,16 +1,23 @@
 package com.pedrocelio.webservices.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-	@Entity
-	public class Tb_User implements Serializable {
-		private static final long serialVersionUID = 1L;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "tb_user")
+public class Tb_User implements Serializable {
+	private static final long serialVersionUID = 1L;
 		
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +26,10 @@ import javax.persistence.Id;
 		private String email;
 		private String phone;
 		private String password;
+		
+		@JsonIgnore
+		@OneToMany(mappedBy = "client")
+		private List<Order> orders = new ArrayList<>();
 		
 		private Tb_User() {
 		}
@@ -71,6 +82,11 @@ import javax.persistence.Id;
 		public void setPassword(String password) {
 			this.password = password;
 		}
+		
+		public List<Order> getOrders() {
+			return orders;
+		}
+		
 
 		@Override
 		public int hashCode() {
@@ -88,6 +104,6 @@ import javax.persistence.Id;
 			Tb_User other = (Tb_User) obj;
 			return Objects.equals(id, other.id);
 		}
-		
+	
 	}
 
