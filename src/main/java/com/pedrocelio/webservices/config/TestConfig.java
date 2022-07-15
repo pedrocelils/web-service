@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.pedrocelio.webservices.entities.Category;
 import com.pedrocelio.webservices.entities.Order;
+import com.pedrocelio.webservices.entities.Product;
 import com.pedrocelio.webservices.entities.Tb_User;
 import com.pedrocelio.webservices.entities.enums.OrderStatus;
 import com.pedrocelio.webservices.repositories.CategoryRepository;
 import com.pedrocelio.webservices.repositories.OrderRepository;
+import com.pedrocelio.webservices.repositories.ProductRepository;
 import com.pedrocelio.webservices.repositories.UserRepository;
 
 @Configuration
@@ -28,6 +30,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private ProductRepository productRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -41,11 +46,15 @@ public class TestConfig implements CommandLineRunner {
 		Category cat1 = new Category(null, "Mercearia");
 		Category cat2 = new Category(null, "Frutas");
 		Category cat3 = new Category(null, "Eletônica");
+		
+		Product prod1 = new Product(null, "Celular", "Iphone 13", 15.000, "");
+		Product prod2 = new Product(null, "Carro", "Gol", 15.000, "");
+		Product prod3 = new Product(null, "Notebook", "Dell", 15.000, "");
+
 
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1,o2,o3));
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
-	}
-	
-	
+		productRepository.saveAll(Arrays.asList(prod1, prod2, prod3));
+	}	
 }
