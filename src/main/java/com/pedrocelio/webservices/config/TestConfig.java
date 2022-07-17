@@ -43,7 +43,7 @@ public class TestConfig implements CommandLineRunner {
 		Order o2 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), OrderStatus.WAITING_PAYMENT, u2);
 		Order o3 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), OrderStatus.WAITING_PAYMENT, u1);
 		
-		Category cat1 = new Category(null, "Mercearia");
+		Category cat1 = new Category(null, "Veículos");
 		Category cat2 = new Category(null, "Frutas");
 		Category cat3 = new Category(null, "Eletônica");
 		
@@ -51,10 +51,17 @@ public class TestConfig implements CommandLineRunner {
 		Product prod2 = new Product(null, "Carro", "Gol", 15.000, "");
 		Product prod3 = new Product(null, "Notebook", "Dell", 15.000, "");
 
-
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1,o2,o3));
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 		productRepository.saveAll(Arrays.asList(prod1, prod2, prod3));
+		
+		
+		prod1.getCategories().add(cat3);
+		prod2.getCategories().add(cat1);
+		prod3.getCategories().add(cat3);
+		
+		productRepository.saveAll(Arrays.asList(prod1, prod2, prod3));
+		
 	}	
 }
